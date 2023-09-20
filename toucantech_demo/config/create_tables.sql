@@ -10,3 +10,11 @@ CREATE TABLE IF NOT EXISTS members (
     school_id INT,
     FOREIGN KEY (school_id) REFERENCES schools(school_id)
 );
+
+CREATE TABLE IF NOT EXISTS member_school (
+    member_id INT,
+    school_id INT,
+    PRIMARY KEY (member_id, school_id),
+    FOREIGN KEY (member_id) REFERENCES members(member_id),
+    FOREIGN KEY (school_id) REFERENCES schools(school_id)
+);
