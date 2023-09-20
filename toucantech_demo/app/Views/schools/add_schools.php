@@ -1,4 +1,5 @@
 <?php
+include('../../../public/navbar.php');
 require_once('../../../app/Controllers/schools_controller.php');
 require_once('../../../config/database.php');
 $schoolsController = new SchoolsController($conn);
@@ -9,9 +10,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $result = $schoolsController->addSchool($school_name);
 
     if ($result) {
-        echo "Successfully added a school!";
+        echo '<div class="alert alert-success" role="alert">Successfully added a school!</div>';
     } else {
-        echo "Error adding school. Please try again.";
+        echo '<div class="alert alert-danger" role="alert">Error adding school. Please try again.</div>';
     }
 }
 ?>
@@ -20,14 +21,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <head>
     <title>Add School</title>
     <link rel="stylesheet" type="text/css" href="../public/css/style.css">
+	<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css">
 </head>
 <body>
-    <h1>Add School</h1>
-    <form action="add_schools.php" method="post">
-        <label for="school_name">School Name:</label>
-        <input type="text" name="school_name" required>
-        <button type="submit">Add School</button>
-    </form>
-    <a href="list_schools.php">View All Schools</a>
+    <div class="container mt-4">
+        <h1 class="mb-4 text-center">Add School</h1>
+        <form action="add_schools.php" method="post">
+            <div class="mb-3">
+                <label for="school_name" class="form-label">School Name:</label>
+                <input type="text" class="form-control" name="school_name" required>
+            </div>
+			<div class="text-center">
+				<button type="submit" class="btn btn-primary">Add School</button>
+			</div>
+        </form>
+		<div class="text-center">
+			<a href="list_schools.php" class="btn btn-secondary mt-3">View All Schools</a>
+		</div>
+    </div>
 </body>
 </html>
