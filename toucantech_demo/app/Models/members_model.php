@@ -19,6 +19,22 @@ class MembersModel {
             return false;
         }
     }
+	
+	public function getAllMembers() {
+		$sql = "SELECT * FROM members";
+		$result = $this->conn->query($sql);
+
+		if ($result->num_rows > 0) {
+			$members = [];
+			while ($row = $result->fetch_assoc()) {
+				$members[] = $row;
+			}
+			return $members;
+		} else {
+			return [];
+		}
+	}
+
 
     public function getMembersBySchool($school_id) {
         $school_id = $this->conn->real_escape_string($school_id);
@@ -34,6 +50,19 @@ class MembersModel {
             return $members;
         } else {
             return [];
+        }
+    }
+	
+	public function associateMemberWithSchool($member_id, $school_id) {
+        $member_id = $this->conn->real_escape_string($member_id);
+        $school_id = $this->conn->real_escape_string($school_id);
+
+        $sql = "INSERT INTO member_school (member_id, school_id) VALUES ('$member_id', '$school_id')";
+
+        if ($this->conn->query($sql) === TRUE) {
+            return true;
+        } else {
+            return false;
         }
     }
 }
