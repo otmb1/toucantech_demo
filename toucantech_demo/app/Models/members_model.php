@@ -38,7 +38,7 @@ class MembersModel {
 
     public function getMembersBySchool($school_id) {
         $school_id = $this->conn->real_escape_string($school_id);
-        $sql = "SELECT * FROM member_school WHERE school_id = '$school_id'";
+        $sql = "SELECT * FROM members m INNER JOIN member_school ms ON m.member_id = ms.member_id WHERE ms.school_id = '$school_id'";
         $result = $this->conn->query($sql);
         
         if ($result->num_rows > 0) {
