@@ -10,8 +10,8 @@ class MembersController {
         $this->membersModel = new MembersModel($conn);
     }
 
-    public function addMember($name, $email, $school_id) {
-        return $this->membersModel->addMember($name, $email, $school_id);
+    public function addMember($name, $email) {
+        return $this->membersModel->addMember($name, $email);
     }
 
     public function listMembersBySchool($school_id) {
@@ -22,9 +22,17 @@ class MembersController {
 		}
     }
 	
+	public function getSchoolsByMemberId($member_id) {
+        return $this->membersModel->getSchoolsByMemberId($member_id);
+    }
+	
 	public function associateMemberWithSchool($member_id, $school_id) {
         return $this->membersModel->associateMemberWithSchool($member_id, $school_id);
 	}	
+	
+	public function getLastInsertedMemberId() {
+        return $this->membersModel->getLastInsertedMemberId();
+    }
 
 }
 ?>

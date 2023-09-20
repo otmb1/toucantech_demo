@@ -7,11 +7,11 @@ class MembersModel {
         $this->conn = $conn;
     }
 
-    public function addMember($name, $email, $school_id) {
+    public function addMember($name, $email) {
         $name = $this->conn->real_escape_string($name);
         $email = $this->conn->real_escape_string($email);
         
-        $sql = "INSERT INTO members (member_name, member_email, school_id) VALUES ('$name', '$email', '$school_id')";
+        $sql = "INSERT INTO members (member_name, member_email) VALUES ('$name', '$email')";
         
         if ($this->conn->query($sql) === TRUE) {
             return true;
@@ -38,8 +38,7 @@ class MembersModel {
 
     public function getMembersBySchool($school_id) {
         $school_id = $this->conn->real_escape_string($school_id);
-        
-        $sql = "SELECT * FROM members WHERE school_id = '$school_id'";
+        $sql = "SELECT * FROM member_school WHERE school_id = '$school_id'";
         $result = $this->conn->query($sql);
         
         if ($result->num_rows > 0) {
@@ -53,6 +52,22 @@ class MembersModel {
         }
     }
 	
+	public function getSchoolsByMemberId($member_id) {
+		$member_id = $this->conn->real_escape_string($member_id);
+		$sql = "SELECT s.school_name FROM schools s INNER JOIN member_school ms ON s.school_id = ms.school_id WHERE ms.member_id = '$member_id'";
+		$result = $this->conn->query($sql);
+
+		if ($result->num_rows > 0) {
+			$schools = [];
+			while ($row = $result->fetch_assoc()) {
+				$schools[] = $row;
+			}
+			return $schools;
+		} else {
+			return [];
+		}
+	}
+	
 	public function associateMemberWithSchool($member_id, $school_id) {
         $member_id = $this->conn->real_escape_string($member_id);
         $school_id = $this->conn->real_escape_string($school_id);
@@ -65,5 +80,17 @@ class MembersModel {
             return false;
         }
     }
+	
+	public function getLastInsertedMemberId() {
+		$sql = "SELECT LAST_INSERT_ID() AS member_id";
+		$result = $this->conn->query($sql);
+
+		if ($result) {
+			$row = $result->fetch_assoc();
+			return $row['member_id'];
+		} else {
+			return null;
+		}
+	}
 }
 ?>

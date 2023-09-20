@@ -9,12 +9,16 @@ $schools = $schoolsController->listAllSchools();
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $member_name = $_POST['member_name'];
     $member_email = $_POST['member_email'];
-    $school_id = $_POST['school_id'];
+    $selectedSchools = $_POST['school_id'];
 
-    $result = $membersController->addMember($member_name, $member_email, $school_id);
+    $result = $membersController->addMember($member_name, $member_email);
 
     if ($result) {
-        echo "Successfully added a member!";
+        $member_id = $membersController->getLastInsertedMemberId();
+        foreach ($selectedSchools as $school_id) {
+            $membersController->associateMemberWithSchool($member_id, $school_id);
+        }
+		echo "Successfully added a member!";
     } else {
         echo "Error adding member. Please try again.";
     }
@@ -34,11 +38,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         <label for="member_email">Email Address:</label>
         <input type="email" name="member_email" required>
         <label for="schools">Select School(s):</label>
-        <select name="school_id" multiple required>
-            <?php foreach ($schools as $school): ?>
-                <option value="<?php echo $school['school_id']; ?>"><?php echo $school['school_name']; ?></option>
-            <?php endforeach; ?>
-        </select>
+        <select name="school_id[]" multiple required>
+			<?php foreach ($schools as $school): ?>
+				<option value="<?php echo $school['school_id']; ?>"><?php echo $school['school_name']; ?></option>
+			<?php endforeach; ?>
+		</select>
         <button type="submit">Add Member</button>
     </form>
     <a href="list_members.php">View All Members</a>
