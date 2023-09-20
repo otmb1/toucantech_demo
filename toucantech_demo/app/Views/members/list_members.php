@@ -51,7 +51,9 @@ $schools = $schoolsController->listAllSchools();
                 <tr>
                     <td><?php echo $member['member_name']; ?></td>
                     <td><?php echo $member['member_email']; ?></td>
-                    <td><?php echo $school['school_name']; ?></td>
+                    <td><?php 
+						$schoolName = $schoolsController->getSchoolNameById($member['school_id']);
+                        echo $schoolName; ?></td>
                 </tr>
             <?php endforeach; ?>
         </tbody>

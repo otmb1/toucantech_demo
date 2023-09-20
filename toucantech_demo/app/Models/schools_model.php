@@ -33,5 +33,18 @@ class SchoolsModel {
             return [];
         }
     }
+	
+	public function getSchoolNameById($school_id) {
+		$school_id = $this->conn->real_escape_string($school_id);
+		$sql = "SELECT school_name FROM schools WHERE school_id = '$school_id'";
+		$result = $this->conn->query($sql);
+
+		if ($result && $result->num_rows > 0) {
+			$row = $result->fetch_assoc();
+			return $row['school_name'];
+		} else {
+			return 'N/A';
+		}
+	}
 }
 ?>

@@ -16,5 +16,9 @@ class SchoolsController {
     public function listAllSchools() {
         return $this->schoolsModel->getSchools();
     }
+	
+	public function getSchoolNameById($school_id) {
+        return $this->schoolsModel->getSchoolNameById($school_id);
+    }
 }
 ?>
