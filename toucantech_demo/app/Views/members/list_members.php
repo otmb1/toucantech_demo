@@ -7,7 +7,12 @@ $schoolsController = new SchoolsController($conn);
 
 if (isset($_POST['filter_school'])) {
     $selectedSchoolId = $_POST['filter_school'];
-    $members = $membersController->listMembersBySchool($selectedSchoolId);
+    if ($selectedSchoolId == 0) {
+        $school_id = -1;
+    } else {
+        $school_id = $selectedSchoolId;
+    }
+    $members = $membersController->listMembersBySchool($school_id);
 } else {
     $school_id = -1;
 	$members = $membersController->listMembersBySchool($school_id);
@@ -26,7 +31,7 @@ $schools = $schoolsController->listAllSchools();
     <form action="list_members.php" method="post">
         <label for="filter_school">Filter by School:</label>
         <select name="filter_school">
-            <option value="">All Schools</option>
+            <option value="0">All Schools</option>
             <?php foreach ($schools as $school): ?>
                 <option value="<?php echo $school['school_id']; ?>"><?php echo $school['school_name']; ?></option>
             <?php endforeach; ?>
