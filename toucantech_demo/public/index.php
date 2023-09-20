@@ -8,7 +8,7 @@
 </head>
 <body>
     <?php include('navbar.php'); ?>
-	<div class="container text-center mt-5">
+	<div class="index_container text-center mt-5">
         <img src="/toucantech_demo/public/img/toucantech-logo.png" alt="Project Logo" class="img-fluid mt-5" width="400">
         <h1 class="mt-4 mb-5 font-weight-bold">Ore Deru's ToucanTech Demo Assessment</h1>
     </div>

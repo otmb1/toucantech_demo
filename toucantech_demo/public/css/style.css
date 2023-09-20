@@ -1,0 +1,15 @@
+body *{
+  font-family: 'Verdana', sans-serif;
+}
+
+.navbar-nav .nav-item .nav-link:hover {
+  color: black;
+}
+
+.index_container {
+  overflow: hidden;
+  background-color: #e3f2fd;
+  border-radius: 4rem;
+  position: relative;
+  margin: 2rem;
+}
