@@ -92,5 +92,36 @@ class MembersModel {
 			return null;
 		}
 	}
+	
+	public function updateMember($member_id, $name, $email) {
+		$member_id = $this->conn->real_escape_string($member_id);
+		$name = $this->conn->real_escape_string($name);
+		$email = $this->conn->real_escape_string($email);
+		
+		$sql = "UPDATE members SET member_name = '$name', member_email = '$email' WHERE member_id = '$member_id'";
+		
+		if ($this->conn->query($sql) === TRUE) {
+			return true;
+		} else {
+			error_log("Error updating member: " . $this->conn->error);
+			return false;
+		}
+	}
+	
+	public function deleteMember($member_id) {
+		$member_id = $this->conn->real_escape_string($member_id);
+
+		$sqlDeleteMemberSchool = "DELETE FROM member_school WHERE member_id = '$member_id'";
+		$this->conn->query($sqlDeleteMemberSchool);
+
+		$sqlDeleteMember = "DELETE FROM members WHERE member_id = '$member_id'";
+		
+		if ($this->conn->query($sqlDeleteMember) === TRUE) {
+			return true;
+		} else {
+			error_log("Error deleting member: " . $this->conn->error);
+			return false;
+		}
+	}
 }
 ?>

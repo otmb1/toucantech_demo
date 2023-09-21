@@ -33,6 +33,18 @@ class MembersController {
 	public function getLastInsertedMemberId() {
         return $this->membersModel->getLastInsertedMemberId();
     }
+	
+	public function updateMember($member_id, $name, $email) {
+		error_log("Received update request with ID: $member_id, Name: $name, Email: $email");
+		return $this->membersModel->updateMember($member_id, $name, $email);		
+		error_log("Updating member with ID: $member_id, Name: $name, Email: $email");
+	}
+	
+	public function deleteMember($member_id) {
+		error_log("Received delete request with ID: $member_id");
+		return $this->membersModel->deleteMember($member_id);
+		error_log("Deleting member with ID: $member_id");
+	}
 
 }
 ?>
