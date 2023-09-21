@@ -14,17 +14,26 @@ $schools = $schoolsController->listAllSchools();
 <body>
     <?php include('../../../public/navbar.php'); ?>
     <div class="container mt-4">
-        <h1 class="mb-4 text-center">List of Schools</h1>
-        <ul class="list-group">
-            <?php foreach ($schools as $school): ?>
-                <li class="list-group-item">
-                    <?php echo $school['school_id']; ?>. <?php echo $school['school_name']; ?>
-                </li>
-            <?php endforeach; ?>
-        </ul>
+		<h1 class="mb-4 text-center">List of Schools</h1>
+		<table class="table table-hover mt-3">
+			<thead class="table-primary">
+				<tr>
+					<th>ID</th>
+					<th>School Name</th>
+				</tr>
+			</thead>
+			<tbody>
+				<?php foreach ($schools as $school): ?>
+					<tr>
+						<td><?php echo $school['school_id']; ?></td>
+						<td><?php echo $school['school_name']; ?></td>
+					</tr>
+				<?php endforeach; ?>
+			</tbody>
+		</table>
 		<div class="container mt-2 text-center">
 			<a href="add_schools.php" class="btn btn-primary mt-3">Add New School</a>
 		</div>
-    </div>
+	</div>
 </body>
 </html>
